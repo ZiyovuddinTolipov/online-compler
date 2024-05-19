@@ -1,0 +1,22 @@
+{
+    "lan": "English",
+    "flag":"https://magical-tulumba-981ac7.netlify.app/flag/eng.png",
+    "form_title": "Register",
+    "name_input": "Surname and Name",
+    "phone_input": "Phone number",
+    "send_button": "Send",
+
+    "success_message": "Sent!",
+    "error_message": "Not sent !",
+
+    "select_directions_text":"Select a section",
+    "KS": "Computer literacy" ,
+    "PY":"Python",
+    "WD":"Web programming",
+    "MD": "Mobile programming" ,
+    "KX":"Cybersecurity",
+    "TA": "Network admistrator",
+    "DY": "Design",
+    "SMM":"SMM",
+    "RB":"Robotics"
+}

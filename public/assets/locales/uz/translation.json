@@ -1,0 +1,22 @@
+{
+    "lan": "O'zbek",
+    "flag":"https://magical-tulumba-981ac7.netlify.app/flag/uz.png",
+    "form_title": "Ro'yxatdan o'tish",
+    "name_input": "Ism va Familiyangiz",
+    "phone_input": "Telefon Raqamingiz",
+    "send_button": "YUBORISH",
+
+    "success_message": "Yuborildi",
+    "error_message": "Yuborilmadi",
+
+    "select_directions_text":"Bo'lim",
+    "KS":"Komputer savodxonligi",
+    "PY":"Python",
+    "WD":"Web dasturlash",
+    "MD":"Mobile Dasturlash",
+    "KX":"Kiberxavsizlik",
+    "TA":"Tarmoq Admistratori",
+    "DY":"Dizayn",
+    "SMM":"SMM",
+    "RB":"Robototexnika"
+}

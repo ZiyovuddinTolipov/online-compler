@@ -1,0 +1,239 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+.upload {
+    --background: #ffffff;
+    --text-drop: #cac8ca;
+    --text-upload: #2d2c2f;
+    --progress-color: #e7e5e7;
+    --check-color: var(--text-upload);
+    --border-radius: 30px;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: var(--background);
+        border-radius: var(--border-radius);
+        transition: all 0.3s ease-out;
+        box-shadow: var(--shadow-x, 0px) var(--shadow-y, 1px) var(--shadow-blur, 3px) rgba(#000, 0.1);
+        transform: scale(var(--scale, 1));
+    }
+    .drop-here {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        border-radius: var(--border-radius);
+        opacity: var(--opacity, 0);
+        overflow: hidden;
+        cursor: pointer;
+        text-indent: -9999px;
+        z-index: 1;
+    }
+    .text {
+        position: absolute;
+        font-size: 21px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: bold;
+        &.text-drop {
+            color: var(--text-drop);
+            opacity: var(--opacity, 1);
+            transition: opacity 0.15s ease-out 0.15s;
+        }
+        &.text-upload {
+            color: var(--text-upload);
+            opacity: var(--opacity, 0);
+            transition: opacity 0.15s ease-out;
+        }
+    }
+    .progress-wrapper {
+        position: absolute;
+        .progress {
+            fill: none;
+            stroke: var(--progress-color);
+            stroke-width: 3;
+            stroke-dasharray: 722;
+            stroke-dashoffset: 722;
+        }
+    }
+    .check-wrapper {
+        position: absolute;
+        opacity: var(--opacity, 0);
+        transform: scale(var(--scale, 0.9)) rotate(var(--rotate, 3deg));
+        transition:
+            transform 0.15s ease-in-out,
+            opacity 0.15s ease-in;
+        .check {
+            width: 100px;
+            width: 100px;
+            fill: none;
+            stroke: var(--check-color);
+            stroke-width: 7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100 0;
+            stroke-dashoffset: 100;
+        }
+    }
+    .shadow {
+        opacity: var(--opacity, 0);
+        overflow: hidden;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        border-radius: var(--border-radius);
+        filter: blur(25px);
+        z-index: -1;
+        transition: all 0.5s ease;
+        &::before {
+            content: "";
+            position: absolute;
+            top: -25%;
+            left: -25%;
+            height: 150%;
+            width: 150%;
+            background: conic-gradient(#4b82d4, #6a29e9, #4b82d4, #6a29e9, #c58357, #ffc940, #4b82d4);
+            animation: shadow-animate 5s linear infinite;
+        }
+    }
+    &.drag {
+        --scale: 1.03;
+        --shadow-y: 5px;
+        --shadow-blur: 20px;
+    }
+    &.drop {
+        .text {
+            &.text-drop {
+                --opacity: 0;
+                transition: opacity 0.15s ease-out;
+            }
+            &.text-upload {
+                --opacity: 1;
+                transition: opacity 0.15s ease-out 0.15s;
+            }
+        }
+        .shadow {
+            --opacity: 1;
+        }
+        .progress-wrapper {
+            opacity: var(--opacity, 1);
+            transform: scale(var(--scale, 1)) rotate(var(--rotate, -90deg));
+            .progress {
+                animation: progress-animate 3s ease 0.3s forwards;
+            }
+        }
+    }
+    &.done {
+        --opacity: 0;
+        .text {
+            &.text-upload {
+                --opacity: 0;
+            }
+        }
+        .shadow {
+            --opacity: 0;
+        }
+        .progress-wrapper {
+            --scale: 0.95;
+            transition:
+                transform 0.3s,
+                opacity 0.3s;
+        }
+        .check-wrapper {
+            --opacity: 1;
+            --scale: 1;
+            --rotate: 0deg;
+            transition:
+                transform 0.5s ease-in-out 0.3s,
+                opacity 0.5s ease-in 0.3s;
+            .check {
+                animation: check-animate 0.5s ease-in-out 0.3s forwards;
+            }
+        }
+    }
+}
+
+@keyframes shadow-animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes progress-animate {
+    0% {
+        stroke-dashoffset: 722;
+    }
+    20% {
+        stroke-dashoffset: 500;
+    }
+    50% {
+        stroke-dashoffset: 322;
+    }
+    55% {
+        stroke-dashoffset: 300;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes check-animate {
+    0% {
+        stroke-dasharray: 0 100;
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dasharray: 100 0;
+        stroke-dashoffset: 100;
+    }
+}
+
+//--- ## BASIC #############
+body {
+    background: #e8ebf3;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: hidden;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    .socials {
+        position: fixed;
+        display: block;
+        left: 20px;
+        bottom: 20px;
+        > a {
+            display: block;
+            width: 30px;
+            opacity: 0.2;
+            transform: scale(var(--scale, 0.8));
+            transition: transform 0.3s cubic-bezier(0.38, -0.12, 0.24, 1.91);
+            &:hover {
+                --scale: 1;
+            }
+        }
+    }
+}
+.upload {
+    width: 100%;
+    max-width: 400px;
+    margin:  auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed black;
+    border-radius: 30px;
+    margin-top: 5%;
+}
