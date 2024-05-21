@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import axios from 'axios';
+import WriteLikeChatGPT from 'write-like-chat-gpt';
 
 const UploadComponent = () => {
   const [isDragging, setIsDragging] = useState(false);
@@ -63,12 +64,12 @@ const UploadComponent = () => {
     const file = e.target.files[0];
     handleFileUpload(file);
   };
+  
 
   return (
-    <main>
-      <nav className='w-[100%] bg-[#fff] py-4 px-20'>
+    <main className='p-4 bg-slate-800 min-h-[100vh]'>
+      <nav className='w-[100%] bg-white/20 backdrop-blur-md text-white py-4 px-20'>
         <marquee direction="left" className='text-2xl font-[600] font-sans'>Dasturiy ta'minotni testlash tizimi.</marquee>
-        {/* <marquee  direction="left"></marquee> */}
       </nav>
       <div className={`upload ${isDragging ? "drag" : ""} ${isUploading ? "drop" : ""} ${isUploaded ? "done h-[100px]" : "h-[300px]"}`}>
         <input
@@ -90,15 +91,15 @@ const UploadComponent = () => {
         </svg>
         <div className="shadow"></div>
       </div>
-      {message && <p className="message text-center my-5">{message}</p>}
+      {data.version && <h2 className='text-center my-4 text-2xl text-white'>Dastur versiyasi {data.version}</h2>}
       {isUploaded && data && (
-        <div className='flex max-w-[80%] mx-auto'>
-          <div className='w-1/2'>
+        <div className='flex max-w-[80%] mx-auto text-white'>
+          <div className='w-2/3'>
             <strong>kod:</strong>
-            <pre className='bg-slate-600 p-2 text-white'>{data.code}</pre>
+            <pre className='bg-[#0B0E14] p-2 text-white'><WriteLikeChatGPT text={data.code} /></pre>
           </div>
-          <div className='w-1/2'>
-            Natija:<pre>{data.result}</pre>
+          <div className='w-1/3 '>
+            Natija:<pre className='p-2'><WriteLikeChatGPT text={data.result} /></pre>
           </div>
         </div>
       )}
