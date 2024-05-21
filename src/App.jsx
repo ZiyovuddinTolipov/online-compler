@@ -36,6 +36,7 @@ const UploadComponent = () => {
           setIsUploading(false);
           setMessage('Hujjat muvaffaqiyatli yuklandi!');
           setData(response.data);
+          console.log(response.data);
         } else {
           setIsUploading(false);
           setMessage('Hujjat yuklashda muammo!');
