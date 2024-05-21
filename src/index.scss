@@ -10,7 +10,6 @@
     --check-color: var(--text-upload);
     --border-radius: 30px;
     width: 300px;
-    height: 300px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -72,9 +71,10 @@
         transition:
             transform 0.15s ease-in-out,
             opacity 0.15s ease-in;
-        .check {
+            .check {
+            color: green;
             width: 100px;
-            width: 100px;
+            width:100px;
             fill: none;
             stroke: var(--check-color);
             stroke-width: 7;
@@ -205,7 +205,7 @@ body {
     background: #e8ebf3;
     height: 100vh;
     max-height: 100vh;
-    overflow-y: hidden;
+    // overflow-y: hidden;
     font-family: "JetBrains Mono", monospace;
     font-size: 16px;
     .socials {
@@ -235,5 +235,5 @@ body {
     align-items: center;
     border: 2px dashed black;
     border-radius: 30px;
-    margin-top: 5%;
+    margin-top: 2%;
 }

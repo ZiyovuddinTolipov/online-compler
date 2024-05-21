@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -6,13 +7,15 @@ const UploadComponent = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
   const [message, setMessage] = useState('');
-  const [data , setData] = useState({});
+  const [data, setData] = useState({});
 
   const handleDragOver = (e) => {
     e.preventDefault();
-    setIsDragging(true);
-    setIsUploading(false);
-    setIsUploaded(false);
+    if (!isDragging) {
+      setIsDragging(true);
+      setIsUploading(false);
+      setIsUploaded(false);
+    }
   };
 
   const handleDragLeave = () => {
@@ -30,18 +33,18 @@ const UploadComponent = () => {
         if (response.status === 200) {
           setIsUploaded(true);
           setIsUploading(false);
-          // setMessage('Dosya başarıyla yüklendi!');
+          setMessage('Hujjat muvaffaqiyatli yuklandi!');
           setData(response.data);
         } else {
           setIsUploading(false);
-          setMessage('Fayl muvaffaqiyatli yuklandi!');
-          console.error('Dosya yüklenirken bir hata oluştu!', response.data);
+          setMessage('Hujjat yuklashda muammo!');
+          console.error('Error uploading file!', response.data);
         }
       })
       .catch(error => {
         setIsUploading(false);
-        setMessage('Dosya yüklenirken bir hata oluştu!');
-        console.error('Dosya yüklenirken bir hata oluştu!', error);
+        setMessage('Error uploading file!');
+        console.error('Error uploading file!', error);
       });
   };
 
@@ -64,23 +67,41 @@ const UploadComponent = () => {
   return (
     <main>
       <nav className='w-[100%] bg-[#fff] py-4 px-20'>
-        <h2 className='text-2xl font-semibold font-[700]'>compler.uz</h2>
+        <marquee direction="left" className='text-2xl font-[600] font-sans'>Dasturiy ta'minotni testlash tizimi.</marquee>
+        {/* <marquee  direction="left"></marquee> */}
       </nav>
-      <div className={`upload ${isDragging ? "drag" : ""} ${isUploading ? "drop" : ""} ${isUploaded ? "done" : ""}`}>
-        <input type="file" accept=".py,.php" className="drop-here" onDrop={handleDrop} onChange={handleChange} onDragOver={handleDragOver} onDragLeave={handleDragLeave} />
-        <div className="text text-drop">Faylni tanlang</div>
-        <div className="text text-upload">Yuklanmoqda</div>
+      <div className={`upload ${isDragging ? "drag" : ""} ${isUploading ? "drop" : ""} ${isUploaded ? "done h-[100px]" : "h-[300px]"}`}>
+        <input
+          type="file"
+          accept=".py,.php"
+          className="drop-here"
+          onDrop={handleDrop}
+          onChange={handleChange}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+        />
+        <div className="text text-drop">Hujjatni tanlash.</div>
+        <div className="text text-upload">Yuklanmoqda...</div>
         <svg className="progress-wrapper" width="300" height="300">
           <circle className="progress" r="115" cx="150" cy="150"></circle>
         </svg>
-        <svg className="check-wrapper" width="130" height="130">
+        <svg className="check-wrapper" width="130" height="100" >
           <polyline className="check" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
         </svg>
         <div className="shadow"></div>
       </div>
-        <ul>
-          <li>{message && <div className="message">{message}</div>}</li>
-        </ul>
+      {message && <p className="message text-center my-5">{message}</p>}
+      {isUploaded && data && (
+        <div className='flex max-w-[80%] mx-auto'>
+          <div className='w-1/2'>
+            <strong>kod:</strong>
+            <pre className='bg-slate-600 p-2 text-white'>{data.code}</pre>
+          </div>
+          <div className='w-1/2'>
+            Natija:<pre>{data.result}</pre>
+          </div>
+        </div>
+      )}
     </main>
   );
 };
