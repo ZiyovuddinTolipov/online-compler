@@ -95,12 +95,12 @@ const UploadComponent = () => {
       {data.version && <h2 className='text-center my-4 text-2xl text-white'>Dastur versiyasi {data.version}</h2>}
       {isUploaded && data && (
         <div className='flex max-w-[80%] mx-auto text-white'>
-          <div className='w-2/3'>
+          <div className='w-3/5'>
             <strong>kod:</strong>
-            <pre className='bg-[#0B0E14] p-2 text-white'><WriteLikeChatGPT text={data.code} /></pre>
+            <pre className='bg-[#0B0E14] p-2 text-white overflow-y-auto'><WriteLikeChatGPT text={data.code} /></pre>
           </div>
-          <div className='w-1/3 '>
-            Natija:<pre className='p-2'><WriteLikeChatGPT text={data.result} /></pre>
+          <div className='w-2/5 '>
+            Natija:<pre className='p-2 overflow-y-auto'><WriteLikeChatGPT text={data.result} /></pre>
           </div>
         </div>
       )}
