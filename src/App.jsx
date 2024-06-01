@@ -27,8 +27,8 @@ const UploadComponent = () => {
     const formData = new FormData();
     formData.append('file', file);
 
-    const apiUrl = file.name.endsWith('.py') ? 'https://klinikuz.pythonanywhere.com/py/' : 'https://klinikuz.pythonanywhere.com/php/';
-
+    const apiUrl = file.name.endsWith('.py') ? 'https://ebozorapi.pythonanywhere.com/py/' : 'https://ebozorapi.pythonanywhere.com/php/';
+    console.log(apiUrl);
     axios.post(apiUrl, formData)
       .then(response => {
         if (response.status === 200) {
